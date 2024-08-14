@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->integer('id_kategori');
-            $table->integer('idsub_kategori');
+            $table->integer('id_sub_kategori');
+            $table->integer('id_sub_sub_kategori');
+            $table->integer('id_brand');
             $table->string('nama_product');
+            $table->integer('harga');
             $table->string('keterangan');
             $table->string('thumbnail');
             $table->string('status');

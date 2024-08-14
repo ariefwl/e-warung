@@ -9,6 +9,17 @@ use Validator;
 
 class SubKategoriController extends Controller
 {
+    public function index()
+    {
+        $subKategori = SubKategoriModel::all();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data sub Kategori',
+            'data' => $subKategori
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[

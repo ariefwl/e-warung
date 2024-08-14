@@ -9,6 +9,17 @@ use App\Models\KategoriModel;
 
 class KategoriController extends Controller
 {
+    public function index()
+    {
+        $kategori = KategoriModel::all();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data kategori',
+            'data' => $kategori
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
