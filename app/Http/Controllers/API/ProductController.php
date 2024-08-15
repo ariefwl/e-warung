@@ -59,4 +59,35 @@ class ProductController extends Controller
 
         return response()->json(['data'=>$product]);
     }
+
+    public function katByProd()
+    {   
+        $Kat = ProductModel::join('kategori', 'products.id_kategori', '=', 'kategori.id')
+                ->where('products.status', 1)
+                ->whereNotNull('products.thumbnail')
+                ->distinct()
+                ->get(['products.id_kategori', 'kategori.nama_kategori']);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data kategori berdasarkan product',
+            'data' => $Kat
+        ]);
+    }
+
+    public function prodByKat($id_kat)
+    {
+        // Ambil data produk berdasarkan id_kategori
+        $products = ProductModel::where('id_kategori', $id_kat)
+                ->where('status', 1)
+                ->where('thumbnail', '<>', '')
+                ->get();
+
+        // Kembalikan response dalam bentuk JSON
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data produk berdasarkan kategori',
+            'data' => $products
+        ]);
+    }
 }
