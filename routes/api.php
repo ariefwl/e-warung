@@ -24,6 +24,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::apiResource('/product', ProductController::class);
 Route::get('/katByProd', [ProductController::class, 'katByProd']);
 Route::get('/prodByKat/{id_kat}', [ProductController::class, 'prodByKat']);
+Route::get('/subKatByProd/{id_kat}', [ProductController::class, 'subKatByProd']);
 
 //Route Kategori Product
 Route::apiResource('/kategori', KategoriController::class);

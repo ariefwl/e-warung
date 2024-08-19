@@ -90,4 +90,21 @@ class ProductController extends Controller
             'data' => $products
         ]);
     }
+
+    public function subKatByProd($id_kat)
+    {
+        $subKat = ProductModel::join('kategori', 'products.id_kategori', '=', 'kategori.id')
+                ->join('sub_kategori', 'products.id_sub_kategori', '=', 'sub_kategori.id_sub')
+                ->where('products.id_kategori', $id_kat)
+                ->where('products.status', 1)
+                ->whereNotNull('products.thumbnail')
+                ->distinct()
+                ->get(['products.id_kategori', 'kategori.nama_kategori', 'products.id_sub_kategori', 'sub_kategori.nama_sub_kategori']);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data sub kategori berdasarkan product',
+            'data' => $subKat
+        ]);
+    }
 }
