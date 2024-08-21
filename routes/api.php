@@ -6,6 +6,7 @@ use App\Http\Controllers\API\SubKategoriController;
 use App\Http\Controllers\API\SubSubKategoriController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\BrandController;
+use App\Http\Controllers\API\IklanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,7 @@ Route::apiResource('/subsubkategori', SubSubKategoriController::class);
 
 //Route Brands
 Route::apiResource('/brand', BrandController::class);
+
+// Route Banner Iklan
+Route::apiResource('/iklan', IklanController::class);
 
