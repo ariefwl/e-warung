@@ -7,6 +7,7 @@ use App\Http\Controllers\API\SubSubKategoriController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\BrandController;
 use App\Http\Controllers\API\IklanController;
+use App\Http\Controllers\API\OtherProductsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::get('/katByProd', [ProductController::class, 'katByProd']);
 Route::get('/prodByKat/{id_kat}', [ProductController::class, 'prodByKat']);
 Route::get('/subKatByProd/{id_kat}', [ProductController::class, 'subKatByProd']);
 
+//Route Other Product
+Route::apiResource('/otherprod', OtherProductsController::class);
+
 //Route Kategori Product
 Route::apiResource('/kategori', KategoriController::class);
 
@@ -41,4 +45,5 @@ Route::apiResource('/brand', BrandController::class);
 
 // Route Banner Iklan
 Route::apiResource('/iklan', IklanController::class);
+
 
