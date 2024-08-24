@@ -45,4 +45,26 @@ class IklanController extends Controller
 
         return response()->json(['data'=>$product]);
     }
+
+    public function iklanatas()
+    {
+        $iklan = IklanModel::where(['status'=> 1, 'posisi' => 1])->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data iklan atas',
+            'data' => $iklan
+        ]);
+    }
+
+    public function iklanbawah()
+    {
+        $iklan = IklanModel::where(['status'=> 1, 'posisi' => 2])->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data iklan bawah',
+            'data' => $iklan
+        ]);
+    }
 }

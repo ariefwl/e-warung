@@ -45,5 +45,7 @@ Route::apiResource('/brand', BrandController::class);
 
 // Route Banner Iklan
 Route::apiResource('/iklan', IklanController::class);
+Route::get('/iklanatas', [IklanController::class, 'iklanatas']);
+Route::get('/iklanbawah', [IklanController::class, 'iklanbawah']);
 
 
