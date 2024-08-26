@@ -8,6 +8,7 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\BrandController;
 use App\Http\Controllers\API\IklanController;
 use App\Http\Controllers\API\OtherProductsController;
+use App\Http\Controllers\API\OfficialStoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,5 +48,8 @@ Route::apiResource('/brand', BrandController::class);
 Route::apiResource('/iklan', IklanController::class);
 Route::get('/iklanatas', [IklanController::class, 'iklanatas']);
 Route::get('/iklanbawah', [IklanController::class, 'iklanbawah']);
+
+//Route Official Store
+Route::apiResource('/offstore', OfficialStoreController::class);
 
 
