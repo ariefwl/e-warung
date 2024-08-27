@@ -31,8 +31,9 @@ class ProductController extends Controller
             'id_brand' => 'required|integer',
             'nama_product' => 'required|string|max:100',
             'harga' => 'required|integer',
-            'thumbnail'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'status'     => 'required',
+            'lokasi_toko' => 'required|integer', 
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'status' => 'required',
         ]);
 
         //check if validation fails
@@ -49,10 +50,14 @@ class ProductController extends Controller
             'id_kategori'   => $request->id_kategori,
             'id_sub_kategori'   => $request->id_sub_kategori,
             'id_sub_sub_kategori'   => $request->id_sub_sub_kategori,
-            'id_brand'   => $request->id_brand,
+            'id_brand' => $request->id_brand,
             'nama_product'   => $request->nama_product,
             'harga' => $request->harga,
-            'keterangan'   => $request->keterangan,
+            'diskon' => $request->diskon,
+            'keterangan' => $request->keterangan,
+            'lokasi_toko' => $request->lokasi_toko,
+            'stock' => $request->stock,
+            'type_product' =>request->type_product,
             'thumbnail'     => $thumbnail->hashName(),
             'status'     => $request->status
         ]);
