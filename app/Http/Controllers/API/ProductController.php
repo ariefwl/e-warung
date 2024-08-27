@@ -57,7 +57,7 @@ class ProductController extends Controller
             'keterangan' => $request->keterangan,
             'lokasi_toko' => $request->lokasi_toko,
             'stock' => $request->stock,
-            'type_product' =>request->type_product,
+            'type_product' =>$request->type_product,
             'thumbnail'     => $thumbnail->hashName(),
             'status'     => $request->status
         ]);
