@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('diskon')->after('harga');
-            $table->string('lokasi_toko')->after('keterangan');
-            $table->integer('type_product')->after('lokasi_toko');
-            $table->integer('stock')->after('lokasi_toko');
+            $table->integer('diskon')->default(0)->nullable()->after('harga');
+            $table->integer('lokasi_toko')->default(1)->after('keterangan');
+            $table->integer('type_product')->default(0)->after('lokasi_toko');
+            $table->integer('stock')->default(0)->after('lokasi_toko');
             
         });
     }

@@ -112,4 +112,15 @@ class ProductController extends Controller
             'data' => $subKat
         ]);
     }
+
+    public function sale()
+    {
+        $sale = ProductModel::where(['status' => 1, 'type_product' => 2])->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data product sale',
+            'data' => $sale
+        ]);
+    }
 }
