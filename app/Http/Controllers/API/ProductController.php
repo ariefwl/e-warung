@@ -96,6 +96,23 @@ class ProductController extends Controller
         ]);
     }
 
+    public function subSubKatBySubKat($id_SubKat)
+    {
+        $subSubKat = ProductModel::join('sub_kategori', 'products.id_sub_kategori', '=','sub_kategori.id_sub')
+                     ->join('sub_sub_kategori', 'products.id_sub_sub_kategori', '=', 'sub_sub_kategori.id_sub_sub')
+                     ->where('products.id_sub_kategori', $id_SubKat)
+                     ->where('products.status', 1)
+                     ->whereNotNull('products.thumbnail')
+                     ->distinct()
+                     ->get(['products.id_sub_kategori','sub_kategori.nama_sub_kategori','products.id_sub_sub_kategori','sub_sub_kategori.nama_sub_sub_kategori']);
+                    
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data sub sub kategori berdasarkan sub kategori',
+            'data' => $subSubKat
+        ]);
+    }
+
     public function subKatByProd($id_kat)
     {
         $subKat = ProductModel::join('kategori', 'products.id_kategori', '=', 'kategori.id')
@@ -108,7 +125,7 @@ class ProductController extends Controller
         
         return response()->json([
             'success' => true,
-            'message' => 'Sukses menampilkan data sub kategori berdasarkan product',
+            'message' => 'Sukses menampilkan data product berdasarkan sub kategori',
             'data' => $subKat
         ]);
     }
