@@ -11,4 +11,9 @@ class ProductModel extends Model
 
     protected $table = 'products';
     protected $fillable = ['id','id_kategori','id_sub_kategori','id_sub_sub_kategori','id_brand','nama_product','harga','keterangan','thumbnail','status'];
+
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriModel::class, 'id_kategori', 'id');
+    }
 }

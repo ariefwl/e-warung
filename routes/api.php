@@ -30,6 +30,7 @@ Route::get('/prodByKat/{id_kat}', [ProductController::class, 'prodByKat']);
 Route::get('/subKatByProd/{id_kat}', [ProductController::class, 'subKatByProd']);
 Route::get('/sale', [ProductController::class, 'sale']);
 Route::get('/subSubKatBySubKat/{id_subKat}', [ProductController::class, 'subSubKatBySubKat']);
+Route::get('/katWithProd', [ProductController::class, 'katWithProd']);
 
 //Route Other Product
 Route::apiResource('/otherprod', OtherProductsController::class);

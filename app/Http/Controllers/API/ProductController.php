@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProductModel;
+use App\Models\KategoriModel;
 use Validator;
 
 class ProductController extends Controller
@@ -138,6 +139,19 @@ class ProductController extends Controller
             'success' => true,
             'message' => 'Sukses menampilkan data product sale',
             'data' => $sale
+        ]);
+    }
+
+    public function katWithProd()
+    {
+        $kategori = KategoriModel::with(['product' => function($query){
+            $query->select('id', 'id_kategori', 'nama_product', 'harga','lokasi_toko','thumbnail','keterangan', 'status')->where('status', 1);
+        }])->select('id', 'nama_kategori')->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sukses menampilkan data kategori dengan produk',
+            'data' => $kategori
         ]);
     }
 }
