@@ -145,7 +145,8 @@ class ProductController extends Controller
     public function katWithProd($id_kat)
     {
         $kategori = KategoriModel::with(['product' => function($query) use ($id_kat){
-            $query->select('id', 'id_kategori', 'nama_product', 'harga','lokasi_toko','thumbnail','keterangan', 'status')->where(['status' => 1, 'id_kategori' => $id_kat]);
+            $query->join('sub_kategori', 'products.id_sub_kategori', '=', 'sub_kategori.id_sub')
+                  ->select('products.id', 'products.id_kategori', 'sub_kategori.nama_sub_kategori', 'products.nama_product', 'products.harga','products.lokasi_toko','products.thumbnail','products.keterangan', 'products.status')->where(['products.status' => 1, 'products.id_kategori' => $id_kat]);
         }])->select('id', 'nama_kategori')->where('id', $id_kat)->get();
 
         return response()->json([
