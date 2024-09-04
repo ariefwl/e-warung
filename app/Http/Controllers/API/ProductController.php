@@ -142,11 +142,11 @@ class ProductController extends Controller
         ]);
     }
 
-    public function katWithProd()
+    public function katWithProd($id_kat)
     {
-        $kategori = KategoriModel::with(['product' => function($query){
-            $query->select('id', 'id_kategori', 'nama_product', 'harga','lokasi_toko','thumbnail','keterangan', 'status')->where('status', 1);
-        }])->select('id', 'nama_kategori')->get();
+        $kategori = KategoriModel::with(['product' => function($query) use ($id_kat){
+            $query->select('id', 'id_kategori', 'nama_product', 'harga','lokasi_toko','thumbnail','keterangan', 'status')->where(['status' => 1, 'id_kategori' => $id_kat]);
+        }])->select('id', 'nama_kategori')->where('id', $id_kat)->get();
 
         return response()->json([
             'success' => true,
