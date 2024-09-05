@@ -166,9 +166,15 @@ class ProductController extends Controller
             ->first();
     
         // Ambil sub_kategori terkait dengan kategori ini
-        $sub_kategori = SubKategoriModel::where('id_kat', $id_kat)
-            ->select('id as id_sub', 'nama_sub_kategori')
-            ->first();
+        // $sub_kategori = SubKategoriModel::where('id_kat', $id_kat)
+        //     ->select('id as id_sub', 'nama_sub_kategori')
+        //     ->first();
+        $sub_kategori = ProductModel::select('id_sub_kategori', 'sub_kategori.nama_sub_kategori', 'kategori.nama_kategori')
+        ->distinct()
+        ->join('sub_kategori', 'products.id_sub_kategori', '=', 'sub_kategori.id_sub')
+        ->join('kategori', 'products.id_kategori', '=', 'kategori.id')
+        ->where('products.id_kategori', $id_kat)
+        ->get();
     
         // Struktur JSON yang diinginkan
         $result = [
