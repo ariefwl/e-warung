@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProductModel;
 use App\Models\KategoriModel;
+use App\Models\SubKategoriModel;
 use Validator;
 
 class ProductController extends Controller
@@ -144,15 +145,43 @@ class ProductController extends Controller
 
     public function katWithProd($id_kat)
     {
-        $kategori = KategoriModel::with(['product' => function($query) use ($id_kat){
-            $query->join('sub_kategori', 'products.id_sub_kategori', '=', 'sub_kategori.id_sub')
-                  ->select('products.id', 'products.id_kategori', 'sub_kategori.nama_sub_kategori', 'products.nama_product', 'products.harga','products.lokasi_toko','products.thumbnail','products.keterangan', 'products.status')->where(['products.status' => 1, 'products.id_kategori' => $id_kat]);
-        }])->select('id', 'nama_kategori')->where('id', $id_kat)->get();
-
+        // Ambil kategori dengan join ke tabel sub_kategori dan product
+        $kategori = KategoriModel::where('id', $id_kat)
+            ->with(['product' => function($query) use ($id_kat) {
+                $query->join('sub_kategori', 'products.id_sub_kategori', '=', 'sub_kategori.id_sub')
+                      ->select(
+                          'products.id',
+                          'products.id_kategori',
+                          'products.nama_product',
+                          'products.harga',
+                          'products.lokasi_toko',
+                          'products.thumbnail',
+                          'products.keterangan',
+                          'products.status',
+                          'sub_kategori.nama_sub_kategori'
+                      )
+                      ->where(['products.status' => 1, 'products.id_kategori' => $id_kat]);
+            }])
+            ->select('id', 'nama_kategori')
+            ->first();
+    
+        // Ambil sub_kategori terkait dengan kategori ini
+        $sub_kategori = SubKategoriModel::where('id_kat', $id_kat)
+            ->select('id as id_sub', 'nama_sub_kategori')
+            ->first();
+    
+        // Struktur JSON yang diinginkan
+        $result = [
+            'id' => $kategori->id,
+            'nama_kategori' => $kategori->nama_kategori,
+            'sub_kategori' => $sub_kategori,
+            'product' => $kategori->product,
+        ];
+    
         return response()->json([
             'success' => true,
             'message' => 'Sukses menampilkan data kategori dengan produk',
-            'data' => $kategori
+            'data' => $result
         ]);
     }
 }
